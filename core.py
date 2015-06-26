@@ -20,13 +20,13 @@ class GenericSpider(Spider):
             yield Request(url=url, callback=self.get_parse())
 
     def parse(self, response):
-        for element in self.get_elements(response):
+        for item in self.find_items(response):
             loader = ItemLoader(item=self.item_class())
             for target in self.get_targets():
-                loader.add_value(target.name, target.get_value(element, response))
+                loader.add_value(target.name, target.get_value(item, response))
             yield loader.load_item()
 
-    def get_elements(self, response):
+    def find_items(self, response):
         return Selector(response).css(self.Meta.elements)
 
     def get_targets(self):
