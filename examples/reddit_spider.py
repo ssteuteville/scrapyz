@@ -1,4 +1,4 @@
-from scrapyz.core import GenericSpider, Target
+from scrapyz.core import GenericSpider, CssTarget
 
 class RedditSpider(GenericSpider):
     name = "reddit"
@@ -7,14 +7,14 @@ class RedditSpider(GenericSpider):
     class Meta:
         elements = ".thing"
         targets = [
-            Target("rank", ".rank::text"),
-            Target("upvoted", ".upvoted::text"),
-            Target("dislikes", ".dislikes::text"),
-            Target("likes", ".likes::text"),
-            Target("title", "a.title::text"),
-            Target("domain", ".domain > a::text"),
-            Target("tagline", ".tagline > time::attr(datetime)"),
-            Target("author", ".tagline > .author::text"),
-            Target("subreddit", ".tagline > .subreddit::text"),
-            Target("comments", ".comments::text")
+            CssTarget("rank", ".rank::text"),
+            CssTarget("upvoted", ".upvoted::text"),
+            CssTarget("dislikes", ".dislikes::text"),
+            CssTarget("likes", ".likes::text"),
+            CssTarget("title", "a.title::text"),
+            CssTarget("domain", ".domain > a::text"),
+            CssTarget("datetime", ".tagline > time::attr(datetime)"),
+            CssTarget("author", ".tagline > .author::text"),
+            CssTarget("subreddit", ".tagline > .subreddit::text"),
+            CssTarget("comments", ".comments::text")
         ]

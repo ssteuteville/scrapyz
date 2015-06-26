@@ -1,15 +1,19 @@
 from scrapy.spiders import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
-from scrapy.item import Field, Item
+from scrapy.item import Field
 from scrapy.loader import ItemLoader
+from scrapyz.items import gen_item
 
 
 class GenericSpider(Spider):
 
     def __init__(self, name=None, **kwargs):
+        if not hasattr(self, "Meta"):
+            raise AttributeError("GenericSpider must implement a Meta inner class.")
+
         super(GenericSpider, self).__init__(name, **kwargs)
-        self.item_class = self.gen_item_class()
+        self.item_class = self.get_item_class()
 
     def start_requests(self):
         for url in self.start_urls:
@@ -31,17 +35,21 @@ class GenericSpider(Spider):
     def get_parse(self):
         return self.parse
 
-    def gen_item_class(self):
-        fields = {target.name: Field() for target in self.get_targets()}
-        return type("GenericItem", (Item,), fields)
+    def get_item_class(self):
+        fields = {target.name: target.field_class() for target in self.get_targets()}
+        if hasattr(self.Meta, "extra_fields"):
+            fields.update(self.Meta.extra_fields)
+
+        return gen_item(fields)
 
 
 class Target(object):
 
-    def __init__(self, name, path, processors=None):
+    def __init__(self, name, path, processors=None, field_class=Field):
         self.name = name
         self.path = path
         self.processors = processors if processors else []
+        self.field_class = field_class
 
     def get_value(self, selector, response):
         if isinstance(self.path, (list, tuple)):
@@ -54,7 +62,7 @@ class Target(object):
         return value
 
     def select(self, selector):
-        raise NotImplementedError("Target is meant as a base class. Use CssTarger, RegexTarget,"
+        raise NotImplementedError("Target is meant as a base class. Use CssTarget, RegexTarget,"
                                   " or XPathTarget instead.")
 
 
