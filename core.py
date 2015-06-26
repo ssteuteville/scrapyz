@@ -54,7 +54,8 @@ class Target(object):
         return value
 
     def select(self, selector):
-        return selector.css(self.path).extract()
+        raise NotImplementedError("Target is meant as a base class. Use CssTarger, RegexTarget,"
+                                  " or XPathTarget instead.")
 
 
 class RegexTarget(Target):
@@ -67,3 +68,9 @@ class XPathTarget(Target):
 
     def select(self, selector):
         return selector.xpath(self.path).extract()
+
+
+class CssTarget(Target):
+
+    def select(self, selector):
+        return selector.css(self.path).extract()
