@@ -1,4 +1,3 @@
-import pdb
 from scrapy.spiders import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
@@ -40,11 +39,13 @@ class GenericSpider(Spider):
         return self.parse
 
     def get_item_class(self):
+        return gen_item(self.gen_fields())
+
+    def gen_fields(self):
         fields = {target.name: target.field_class() for target in self.get_targets()}
         if hasattr(self.Meta, "extra_fields"):
             fields.update(self.Meta.extra_fields)
-
-        return gen_item(fields)
+        return fields
 
 
 class IndexDetailSpider(GenericSpider):
@@ -73,10 +74,10 @@ class IndexDetailSpider(GenericSpider):
             loader.add_value(target.name, target.get_value(dom, response))
         yield loader.load_item()
 
-    def get_item_class(self):
-        fields = {target.name: target.field_class() for target in self.get_targets()}
+    def gen_fields(self):
+        fields = super(IndexDetailSpider, self).gen_fields()
         fields.update({target.name: target.field_class() for target in self.Meta.detail_targets})
-        return gen_item(fields)
+        return fields
 
 
 class Target(object):

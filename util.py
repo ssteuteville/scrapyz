@@ -1,5 +1,5 @@
 from scrapy import Item
-from scrapy.http import Request
+from scrapy.http.request import Request
 from scrapy.utils.response import get_base_url
 import urlparse
 
