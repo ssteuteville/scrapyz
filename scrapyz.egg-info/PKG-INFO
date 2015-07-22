@@ -1,0 +1,16 @@
+Metadata-Version: 1.1
+Name: scrapyz
+Version: 0.3
+Summary: Scrape Easy
+Home-page: https://github.com/ssteuteville/scrapyz
+Author: ssteutevile
+Author-email: ssteuteville@gmail.com
+License: MIT
+Description: Scrapyz is a scrapy extension.
+Keywords: scrapy scraping web extraction
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 2.7

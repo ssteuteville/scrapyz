@@ -1,0 +1,15 @@
+README.rst
+setup.cfg
+setup.py
+scrapyz/__init__.py
+scrapyz/core.py
+scrapyz/pipelines.py
+scrapyz/settings.py
+scrapyz/util.py
+scrapyz.egg-info/PKG-INFO
+scrapyz.egg-info/SOURCES.txt
+scrapyz.egg-info/dependency_links.txt
+scrapyz.egg-info/requires.txt
+scrapyz.egg-info/top_level.txt
+scrapyz/examples/__init__.py
+scrapyz/examples/reddit_spider.py
