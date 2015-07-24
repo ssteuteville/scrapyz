@@ -6,6 +6,11 @@
 
 pip install scrapyz
 
+[![PyPI version](https://img.shields.io/pypi/v/scrapyz.svg)](https://img.shields.io/pypi/v/scrapyz.svg)
+[![PyPi downloads](https://img.shields.io/pypi/dm/scrapyz.svg)](https://img.shields.io/pypi/dm/scrapyz.svg)
+[![PyPi status](https://img.shields.io/pypi/status/scrapyz.svg)](https://img.shields.io/pypi/status/scrapyz.svg)
+[![PyPi python version](https://img.shields.io/pypi/pyversions/scrapyz.svg)](https://img.shields.io/pypi/pyversions/scrapyz.svg)
+[![PyPi license](https://img.shields.io/pypi/l/scrapyz.svg)](https://img.shields.io/pypi/l/scrapyz.svg)
 Usage:
 ------
 For scraping items off a single page:
