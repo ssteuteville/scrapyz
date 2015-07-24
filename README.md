@@ -62,3 +62,6 @@ For scraping data off of an index page, following a link and collecting data off
               CssTarget("comments", ".comments::text")
           ]
 ```
+Contribution
+-----------
+Please feel free to submit pull requests or create issues. If you have a feature request create an issue with the label Feature Request.
