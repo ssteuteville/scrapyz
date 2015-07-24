@@ -1,11 +1,9 @@
 
 ## Scrapyz
-====
 ##### "scrape easy" is an extension for the python web scraping framework scrapy. The aim of this package is to cut down on the amount of code needed to create simple spiders with scrapy.
------
-
+---
 ###Installation:
------
+
 pip install scrapyz
 
 Usage:
