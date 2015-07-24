@@ -1,5 +1,4 @@
 import unittest
-from scrapyz.util import JsonSelector
 from util import fake_response
 from spiders import *
 
@@ -47,24 +46,6 @@ class TestGenericSpiders(unittest.TestCase):
         for i, request in enumerate(spider.start_requests()):
             self.assertEqual(request.url, spider.start_urls[i])
 
-    def test_json_spider(self):
-        expected = [
-            {
-                "greeting" : "hello",
-                "word" : "neck!!"
-            },
-            {
-                "greeting" : "hello",
-                "word" : "neck!!"
-            },
-        ]
-        response = fake_response("test.json")
-        spider = JsonTestSpider()
-        results = [item for item in spider.parse(response)]
-        self.assertEqual(len(results), 2)
-        for result, expected in zip(results, expected):
-            for key in result.keys():
-                self.assertEqual(result[key], expected[key])
 
 class TestSpiderExceptions(unittest.TestCase):
     """
@@ -88,10 +69,4 @@ class TestSpiderExceptions(unittest.TestCase):
 
 
 class TestUtil(unittest.TestCase):
-
-    def test_json_selecot(self):
-        data = {"a" : "a", "b": "b", "c": { "d" : ["1", "2", "3"]}}
-        js = JsonSelector(data=data)
-        self.assertEqual(js["a"], data["a"])
-        self.assertEqual(js["c.d"], ["1", "2", "3"])
-        self.assertEqual(js["c.d[2]"], "3")
+    pass

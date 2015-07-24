@@ -1,11 +1,10 @@
-import json
 from scrapy.loader.processors import TakeFirst
 from scrapy.spiders import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
 from scrapy.item import Field
 from scrapy.loader import ItemLoader
-from scrapyz.util import gen_item, gen_request, JsonSelector
+from scrapyz.util import gen_item, gen_request
 
 
 class GenericSpider(Spider):
@@ -51,12 +50,6 @@ class GenericSpider(Spider):
             fields.update(self.Meta.extra_fields)
         return fields
 
-class JsonSpider(GenericSpider):
-    # the test for this isn't passing becasue [] is getting returned from this function todo
-    def find_items(self, response):
-        if not self._items:
-            self._items = JsonSelector(data=JsonSelector(data=json.loads(response.body_as_unicode()))[self.Meta.items])
-        return self._items
 
 
 class IndexDetailSpider(GenericSpider):
@@ -130,8 +123,3 @@ class CssTarget(Target):
 
     def select(self, selector):
         return selector.css(self.path).extract()
-
-class JsonTarget(Target):
-
-    def select(self, selector):
-        return selector[self.path]

@@ -1,4 +1,4 @@
-from scrapyz.core import GenericSpider, CssTarget, JsonSpider, JsonTarget
+from scrapyz.core import GenericSpider, CssTarget
 from scrapyz.util import nth, strip, absolute_url
 
 
@@ -35,14 +35,3 @@ class GoodSpider(GenericSpider):
     class Meta:
         items = ""
         targets = []
-
-class JsonTestSpider(JsonSpider):
-    name = "good"
-    start_urls = ["http://www.test.com"]
-
-    class Meta:
-        items = "list"
-        targets = [
-            JsonTarget("greeting", "inner_list[0"),
-            JsonTarget("word", "inner_list[2].word")
-        ]
