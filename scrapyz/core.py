@@ -68,8 +68,9 @@ class IndexDetailSpider(GenericSpider):
             for target in self.get_targets():
                 loader.add_value(target.name, target.get_value(item, response))
 
-            val = self.Meta.detail_path.get_value(item, response)
-            yield gen_request(val, self.parse_details, loader.load_item())
+            for target in self.Meta.detail_path:
+                val = target.get_value(item, response)
+                yield gen_request(val, self.parse_details, loader.load_item())
 
     def parse_details(self, response):
         dom = Selector(response)

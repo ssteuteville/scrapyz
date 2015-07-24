@@ -1,17 +1,15 @@
-====== 
-Scrapyz
-======
-"scrape easy" is an extension for the python web scraping framework scrapy. The aim of this package is to cut down on the amount of code needed to create simple spiders with scrapy.
------
 
-Installation:
------
+## Scrapyz
+##### "scrape easy" is an extension for the python web scraping framework scrapy. The aim of this package is to cut down on the amount of code needed to create simple spiders with scrapy.
+---
+###Installation:
+
 pip install scrapyz
 
 Usage:
 ------
 For scraping items off a single page:
-::
+```python
 
   class RedditSpider(GenericSpider):
       name = "reddit"
@@ -31,9 +29,10 @@ For scraping items off a single page:
               CssTarget("subreddit", ".tagline > .subreddit::text"),
               CssTarget("comments", ".comments::text")
           ]
+```
 
 For scraping data off of an index page, following a link and collecting data off of a details page:  
-::
+```python
 
   class RedditSpider2(IndexDetailSpider):
       name = "reddit2"
@@ -57,3 +56,4 @@ For scraping data off of an index page, following a link and collecting data off
               CssTarget("subreddit", ".tagline > .subreddit::text"),
               CssTarget("comments", ".comments::text")
           ]
+```
