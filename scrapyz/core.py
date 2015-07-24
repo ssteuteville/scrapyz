@@ -1,9 +1,11 @@
+import json
+from scrapy.loader.processors import TakeFirst
 from scrapy.spiders import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
 from scrapy.item import Field
 from scrapy.loader import ItemLoader
-from scrapyz.util import gen_item, gen_request
+from scrapyz.util import gen_item, gen_request, JsonSelector
 
 
 class GenericSpider(Spider):
@@ -11,6 +13,8 @@ class GenericSpider(Spider):
     def __init__(self, name=None, **kwargs):
         if not hasattr(self, "Meta"):
             raise AttributeError("GenericSpider must implement a Meta inner class.")
+        if not hasattr(self, "start_urls"):
+            raise AttributeError("Generic spider must implement start_urls.")
 
         super(GenericSpider, self).__init__(name, **kwargs)
         self.item_class = self.get_item_class()
@@ -42,10 +46,17 @@ class GenericSpider(Spider):
         return gen_item(self.gen_fields())
 
     def gen_fields(self):
-        fields = {target.name: target.field_class() for target in self.get_targets()}
+        fields = {target.name: target.field_class(output_processor=TakeFirst()) for target in self.get_targets()}
         if hasattr(self.Meta, "extra_fields"):
             fields.update(self.Meta.extra_fields)
         return fields
+
+class JsonSpider(GenericSpider):
+    # the test for this isn't passing becasue [] is getting returned from this function todo
+    def find_items(self, response):
+        if not self._items:
+            self._items = JsonSelector(data=JsonSelector(data=json.loads(response.body_as_unicode()))[self.Meta.items])
+        return self._items
 
 
 class IndexDetailSpider(GenericSpider):
@@ -76,7 +87,7 @@ class IndexDetailSpider(GenericSpider):
 
     def gen_fields(self):
         fields = super(IndexDetailSpider, self).gen_fields()
-        fields.update({target.name: target.field_class() for target in self.Meta.detail_targets})
+        fields.update({target.name: target.field_class(output_processor=TakeFirst()) for target in self.Meta.detail_targets})
         return fields
 
 
@@ -119,3 +130,8 @@ class CssTarget(Target):
 
     def select(self, selector):
         return selector.css(self.path).extract()
+
+class JsonTarget(Target):
+
+    def select(self, selector):
+        return selector[self.path]

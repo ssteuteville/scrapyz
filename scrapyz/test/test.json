@@ -1,0 +1,34 @@
+{
+
+    "list": [
+        {
+            "a" : "a",
+            "dict" : {
+                "d1" : "d1",
+                "d2" : "d2"
+            },
+            "inner_list": [
+                "hello",
+                "world",
+                {
+                    "word": "neck!!"
+                }
+            ]
+        },
+        {
+            "a" : "a",
+            "dict" : {
+                "d1" : "d1",
+                "d2" : "d2"
+            },
+            "inner_list": [
+                "hello",
+                "world",
+                {
+                    "word": "neck!!"
+                }
+            ]
+        }
+
+    ]
+}
