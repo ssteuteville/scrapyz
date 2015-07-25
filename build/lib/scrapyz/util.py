@@ -19,3 +19,15 @@ def absolute_url(link, response):
     if isinstance(link, list):
         link = link[0] if len(link) else ""
     return urlparse.urljoin(get_base_url(response), link)
+
+
+def nth(n):
+    def processor(field, response):
+        return field[n]
+    return processor
+
+
+def strip(field, response):
+    if isinstance(field, list) and field:
+        field = field[0]
+    return field.strip()

@@ -1,3 +1,4 @@
+from scrapy.loader.processors import TakeFirst
 from scrapy.spiders import Spider
 from scrapy.http import Request
 from scrapy.selector import Selector
@@ -11,6 +12,8 @@ class GenericSpider(Spider):
     def __init__(self, name=None, **kwargs):
         if not hasattr(self, "Meta"):
             raise AttributeError("GenericSpider must implement a Meta inner class.")
+        if not hasattr(self, "start_urls"):
+            raise AttributeError("Generic spider must implement start_urls.")
 
         super(GenericSpider, self).__init__(name, **kwargs)
         self.item_class = self.get_item_class()
@@ -42,10 +45,11 @@ class GenericSpider(Spider):
         return gen_item(self.gen_fields())
 
     def gen_fields(self):
-        fields = {target.name: target.field_class() for target in self.get_targets()}
+        fields = {target.name: target.field_class(output_processor=TakeFirst()) for target in self.get_targets()}
         if hasattr(self.Meta, "extra_fields"):
             fields.update(self.Meta.extra_fields)
         return fields
+
 
 
 class IndexDetailSpider(GenericSpider):
@@ -64,8 +68,9 @@ class IndexDetailSpider(GenericSpider):
             for target in self.get_targets():
                 loader.add_value(target.name, target.get_value(item, response))
 
-            val = self.Meta.detail_path.get_value(item, response)
-            yield gen_request(val, self.parse_details, loader.load_item())
+            for target in self.Meta.detail_path:
+                val = target.get_value(item, response)
+                yield gen_request(val, self.parse_details, loader.load_item())
 
     def parse_details(self, response):
         dom = Selector(response)
@@ -76,7 +81,7 @@ class IndexDetailSpider(GenericSpider):
 
     def gen_fields(self):
         fields = super(IndexDetailSpider, self).gen_fields()
-        fields.update({target.name: target.field_class() for target in self.Meta.detail_targets})
+        fields.update({target.name: target.field_class(output_processor=TakeFirst()) for target in self.Meta.detail_targets})
         return fields
 
 

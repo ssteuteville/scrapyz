@@ -33,7 +33,9 @@ class RedditSpider2(IndexDetailSpider):
     start_urls = ["https://www.reddit.com/"]
 
     class Meta:
-        detail_path = CssTarget("detail_path", ".title > a::attr(href)", [absolute_url])
+        detail_path = [
+            CssTarget("detail_path", ".title > a::attr(href)", [absolute_url])
+        ]
         detail_targets = [
             CssTarget("content", ".usertext-body > div > p::text", [join]),
         ]

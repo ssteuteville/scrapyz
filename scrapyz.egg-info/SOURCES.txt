@@ -1,4 +1,3 @@
-README.rst
 setup.cfg
 setup.py
 scrapyz/__init__.py
@@ -13,3 +12,7 @@ scrapyz.egg-info/requires.txt
 scrapyz.egg-info/top_level.txt
 scrapyz/examples/__init__.py
 scrapyz/examples/reddit_spider.py
+scrapyz/test/__init__.py
+scrapyz/test/spiders.py
+scrapyz/test/test_generic_spider.py
+scrapyz/test/util.py
