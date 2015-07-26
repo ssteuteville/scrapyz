@@ -1,0 +1,9 @@
+*.py[cod]
+build
+dist
+Include
+Lib
+Scripts
+.idea
+scrapyz/.idea
+*.egg-info
