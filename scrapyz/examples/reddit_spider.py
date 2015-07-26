@@ -13,7 +13,7 @@ class RedditSpider(GenericSpider):
     start_urls = ["https://www.reddit.com/"]
 
     class Meta:
-        items = ".thing"
+        items = CssTarget("items", ".thing")
         targets = [
             CssTarget("rank", ".rank::text"),
             CssTarget("upvoted", ".upvoted::text"),
@@ -39,7 +39,7 @@ class RedditSpider2(IndexDetailSpider):
         detail_targets = [
             CssTarget("content", ".usertext-body > div > p::text", [join]),
         ]
-        items = ".thing"
+        items = CssTarget("items", ".thing")
         targets = [
             CssTarget("rank", ".rank::text"),
             CssTarget("upvoted", ".upvoted::text"),

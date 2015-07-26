@@ -32,7 +32,7 @@ class GenericSpider(Spider):
 
     def find_items(self, response):
         if not self._items:
-            self._items = Selector(response).css(self.Meta.items)
+            self._items = self.Meta.items.select(Selector(response), extract=False)
         return self._items
 
     def get_targets(self):
@@ -49,7 +49,6 @@ class GenericSpider(Spider):
         if hasattr(self.Meta, "extra_fields"):
             fields.update(self.Meta.extra_fields)
         return fields
-
 
 
 class IndexDetailSpider(GenericSpider):
@@ -103,24 +102,29 @@ class Target(object):
             value = processor(value, response)
         return value
 
-    def select(self, selector):
+    def select(self, selector, extract=False):
         raise NotImplementedError("Target is meant as a base class. Use CssTarget, RegexTarget,"
                                   " or XPathTarget instead.")
 
 
 class RegexTarget(Target):
 
-    def select(self, selector):
+    def select(self, selector, extract=True):
+        """
+            Extract has no effect.
+        """
         return selector.re(self.path)
 
 
 class XPathTarget(Target):
 
-    def select(self, selector):
-        return selector.xpath(self.path).extract()
+    def select(self, selector, extract=True):
+        sel = selector.xpath(self.path)
+        return sel.extract() if extract else sel
 
 
 class CssTarget(Target):
 
-    def select(self, selector):
-        return selector.css(self.path).extract()
+    def select(self, selector, extract=True):
+        sel = selector.css(self.path)
+        return sel.extract() if extract else sel

@@ -7,7 +7,7 @@ class BasicParseTestSpider(GenericSpider):
     start_urls = ["http://www.test.com"]
 
     class Meta:
-        items = ".offer"
+        items = CssTarget("items", ".offer")
         targets = [
             CssTarget("title", ".title::text", [nth(0), strip]),
             CssTarget("discount", ".discount::text", [nth(0), strip]),

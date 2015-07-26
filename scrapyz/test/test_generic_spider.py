@@ -56,10 +56,6 @@ class TestSpiderExceptions(unittest.TestCase):
         for cls in classes:
             with self.assertRaises(AttributeError):
                 spider = cls()
-        try:
-            spider = GoodSpider()
-        except AttributeError:
-            self.fail("GoodSpider raised SWOSpiderValidationError when it shouldn't.")
 
     def test_good_spider(self):
         try:
