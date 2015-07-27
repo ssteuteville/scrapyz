@@ -11,8 +11,8 @@ pip install scrapyz
 [![PyPi status](https://img.shields.io/pypi/status/scrapyz.svg)](https://img.shields.io/pypi/status/scrapyz.svg)
 [![PyPi python version](https://img.shields.io/pypi/pyversions/scrapyz.svg)](https://img.shields.io/pypi/pyversions/scrapyz.svg)
 [![PyPi license](https://img.shields.io/pypi/l/scrapyz.svg)](https://img.shields.io/pypi/l/scrapyz.svg)
-Usage:
-------
+# Usage:
+##### These examples apply to the current version released to Pypi. See examples/tests for updated usage.
 For scraping items off a single page:
 ```python
 
