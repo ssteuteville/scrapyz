@@ -1,4 +1,5 @@
 from scrapyz.core import *
+from scrapyz.pipelines import RequiredFields
 from scrapyz.util import absolute_url
 
 

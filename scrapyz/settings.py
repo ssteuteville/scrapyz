@@ -1,18 +1,9 @@
-# -*- coding: utf-8 -*-
+from scrapyz import pipelines
 
-# Scrapy settings for scrapyz project
-#
-# For simplicity, this file contains only settings considered important or
-# commonly used. You can find more settings consulting the documentation:
-#
-#     http://doc.scrapy.org/en/latest/topics/settings.html
-#     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
-#     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
-
-BOT_NAME = 'scrapyz'
+BOT_NAME = '{your_bot}'
 
 SPIDER_MODULES = ['scrapyz.examples']
-NEWSPIDER_MODULE = 'scrapyz.spiders'
+NEWSPIDER_MODULE = 'scrapyz.examples'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -61,9 +52,8 @@ NEWSPIDER_MODULE = 'scrapyz.spiders'
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'scrapyz.pipelines.SomePipeline': 300,
-#}
+
+ITEM_PIPELINES = pipelines.get_scrapyz_pipelines()
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
