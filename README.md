@@ -64,7 +64,7 @@ For scraping data off of an index page, following a link and collecting data off
 ```
 
 pipelines:
-```
+```python
 class RedditSpider(GenericSpider):
     name = "reddit"
     start_urls = ["https://www.reddit.com/"]
