@@ -10,7 +10,7 @@ pip install scrapyz
 [![PyPi status](https://img.shields.io/pypi/status/scrapyz.svg)](https://img.shields.io/pypi/status/scrapyz.svg)
 [![PyPi python version](https://img.shields.io/pypi/pyversions/scrapyz.svg)](https://img.shields.io/pypi/pyversions/scrapyz.svg)
 # Usage:
-##### These examples apply to the current version released to Pypi. See examples/tests for updated usage.
+##### These examples apply to the current version released to Pypi. See examples/tests for updated usage. See core.py for target classes and util.py for helpers.
 For scraping items off a single page:
 ```python
 
@@ -20,7 +20,7 @@ For scraping items off a single page:
   
       class Meta:
           items = CssTarget("items", ".thing")
-          targets = [
+          targets = [   # scrapyz also has XpathTarget and RegexTarget classes for extraction
               CssTarget("rank", ".rank::text"),
               CssTarget("upvoted", ".upvoted::text"),
               CssTarget("dislikes", ".dislikes::text"),
